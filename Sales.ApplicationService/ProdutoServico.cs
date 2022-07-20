@@ -2,7 +2,7 @@
 using Sales.Domain.Contracts.Repositories;
 using Sales.Domain.Contracts.Services;
 using Sales.Domain.Entities;
-
+using Sales.Domain.Enuns;
 
 namespace Sales.ApplicationService
 {
@@ -17,30 +17,120 @@ namespace Sales.ApplicationService
             _repositorio = repositorio;
         }
 
-        public Task<int> AdicionarAsync(NovoProdutoCommand command)
+        public async Task<int> AdicionarAsync(ProdutoCommand command)
         {
-            throw new NotImplementedException();
+            ValidarCommandEntrada(command, "Objeto produto inválido.");
+
+            if (!EstaValido())
+                return ECodigoRetorno.OperacaoCancelada.GetHashCode();
+
+            var produto = new Produto(command.Descricao, command.Preco, command.Estoque);
+            AddNotifications(produto.Notifications);
+
+            await _repositorio.AdicionarAsync(produto);
+
+            if (await Commit())
+                return await Task.FromResult(produto.Id);
+
+            return ECodigoRetorno.OperacaoCancelada.GetHashCode();
         }
 
-        public Task<int> AtualizarAsync(NovoProdutoCommand command)
+        public async Task<int?> AtualizarAsync(int id, ProdutoCommand command)
         {
-            throw new NotImplementedException();
+            ValidarCommandEntrada(command, "Objeto produto inválido");
+
+            if (!EstaValido())
+                return ECodigoRetorno.OperacaoCancelada.GetHashCode();
+
+            var produto = await _repositorio.ObterPorIdAsync(id);
+
+            if (produto == null)
+            {
+                ProdutoNaoEncontrado();
+                return null;
+            }
+
+            produto.AlterarProduto(command.Descricao, command.Preco, command.Estoque);
+            AddNotifications(produto.Notifications);
+
+            _repositorio.Atualizar(produto);
+
+            if (await Commit())
+                return await Task.FromResult(produto.Id);
+
+            return ECodigoRetorno.OperacaoCancelada.GetHashCode();
         }
 
-        public Task<bool> ExcluirAsync(int id)
+        public async Task<int?> ExcluirAsync(int id)
         {
-            throw new NotImplementedException();
+            var produto = await _repositorio.ObterPorIdAsync(id);
+
+            if (produto == null)
+            {
+                ProdutoNaoEncontrado();
+                return null;
+            }
+
+            produto.Excluir();
+            AddNotifications(produto.Notifications);
+
+            _repositorio.Atualizar(produto);
+
+            if (await Commit())
+                return produto.Id;
+
+            return ECodigoRetorno.OperacaoCancelada.GetHashCode();
         }
 
-        public async Task<IEnumerable<Produto>> ObterAsync()
+        private void ProdutoNaoEncontrado()
         {
-            var produtos = await _repositorio.ObterAsync();
-            produtos.Select
-
+            AddNotification("Produto", "Produto não encontrado");
         }
 
-        public async Task<Produto?> ObterPorIdAsync(int id)
-            => await _repositorio.ObterPorIdAsync(id);
+        private static IEnumerable<ConsultaProdutoCommand> MapearObjetoRetorno(IEnumerable<Produto> produtos)
+        {
+            return produtos
+                .Select(x => new ConsultaProdutoCommand()
+                {
+                    Id = x.Id,
+                    Descricao = x.Descricao,
+                    Preco = x.Preco,
+                    Estoque = x.Estoque,
+                    Excluido = x.Excluido
+                }).ToList();
+        }
+
+        public async Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync()
+        {
+            var produtos = await _repositorio.ObterAsync(x => !x.Excluido);
+            return MapearObjetoRetorno(produtos);
+        }
+
+        public async Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync(string descricao)
+        {
+            var produtos = await _repositorio.ObterAsync(x => !x.Excluido && x.Descricao.Contains(descricao));
+            return MapearObjetoRetorno(produtos);
+        }
+
+        public async Task<ConsultaProdutoCommand?> ObterPorIdAsync(int id)
+        {
+            var produto = await _repositorio.ObterPorIdAsync(id);
+
+            if (produto == null)
+            {
+                ProdutoNaoEncontrado();
+                return null;
+            }
+
+            return new ConsultaProdutoCommand()
+            {
+                Id = produto.Id,
+                Descricao = produto.Descricao,
+                Preco = produto.Preco,
+                Estoque = produto.Estoque,
+                Excluido = produto.Excluido
+            };
+        }
 
     }
 }

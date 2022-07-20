@@ -14,8 +14,8 @@ builder.Services.AddDbContext<SalesDataContext>(options =>
 
 builder.Services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
-builder.Services.AddScoped<IProdutoServico, ProdutoServico>();
+builder.Services.AddTransient<IProdutoRepositorio, ProdutoRepositorio>();
+builder.Services.AddTransient<IProdutoServico, ProdutoServico>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

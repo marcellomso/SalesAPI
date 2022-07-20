@@ -8,7 +8,6 @@ namespace Sales.Domain.Contracts.Repositories
         Task<IEnumerable<TEntity>> ObterAsync(Expression<Func<TEntity, bool>>? filter = null);
         Task<TEntity?> ObterPorIdAsync(int id);
         Task AdicionarAsync(TEntity entidade);
-        Task DeletarAsync(TEntity entidade);
-        Task Atualizar(TEntity entidade);
+        void Atualizar(TEntity entidade);
     }
 }

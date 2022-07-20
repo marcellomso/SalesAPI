@@ -36,12 +36,7 @@ namespace Sales.Data.Repositories
             await _dbSet.AddAsync(entity);
         }
 
-        public async Task DeletarAsync(TEntity entity)
-        {
-            _dbSet.Remove(entity);
-        }
-
-        public async Task Atualizar(TEntity entity)
+        public void Atualizar(TEntity entity)
         {
             _dbSet.Update(entity);
         }

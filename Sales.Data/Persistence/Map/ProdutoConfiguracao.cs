@@ -12,6 +12,7 @@ namespace Sales.Data.Persistence.Map
             builder.Property(p => p.Descricao).IsRequired();
             builder.Property(p => p.Preco).IsRequired();
             builder.Property(p => p.Estoque).IsRequired();
+            builder.Property(p => p.Excluido).IsRequired();
 
             builder.Ignore(p => p.Notifications);
         }

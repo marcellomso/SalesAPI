@@ -1,8 +1,8 @@
 ﻿namespace Sales.Domain.Commands.ProdutoCommand
 {
-    public class NovoProdutoCommand
+    public class ProdutoCommand
     {
-        public string? Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
         public decimal Preco { get; set; }
         public decimal Estoque { get; set; }
     }

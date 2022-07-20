@@ -15,10 +15,5 @@ namespace Sales.Data.Persistence
         {
             await _appContext.SaveChangesAsync();
         }
-
-        public void Rollback()
-        {
-            //
-        }
     }
 }
