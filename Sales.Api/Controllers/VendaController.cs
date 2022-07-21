@@ -46,7 +46,7 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
+        [Route("{id:int}/adicionar")]
         public async Task<IActionResult> Put(int id, [FromBody] AdicionarItemComand command)
         {
             try
@@ -61,12 +61,27 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}/valor/{valor:decimal}")]
+        [Route("{id:int}/fechar/{valor:decimal}")]
         public async Task<IActionResult> Put([FromRoute] int id, [FromRoute] decimal valor)
         {
             try
             {
                 var retorno = await _servico.FinalizarVendaAsync(id, valor);
+                return RetornarResposta((ServicoBase)_servico, retorno);
+            }
+            catch (Exception ex)
+            {
+                return RetornarResposta(ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("{id:int}/cancelar")]
+        public async Task<IActionResult> Put(int id)
+        {
+            try
+            {
+                var retorno = await _servico.CancelarVendaAsync(id);
                 return RetornarResposta((ServicoBase)_servico, retorno);
             }
             catch (Exception ex)

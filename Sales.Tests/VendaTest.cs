@@ -51,5 +51,12 @@ namespace Sales.Tests
             _vendaValida.FinalizarVenda(_vendaValida.TotalVenda - 1);
             Assert.That(_vendaValida.IsValid, Is.False);
         }
+
+        [Test]
+        public void CancelarVendaNaoAberta()
+        {
+            _vendaCancelada.CancelarVenda();
+            Assert.That(_vendaCancelada.IsValid, Is.False);
+        }
     }
 }

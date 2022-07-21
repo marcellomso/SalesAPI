@@ -19,9 +19,9 @@ namespace Sales.Data.Repositories
         public void Atualizar(Venda entidade)
             => _repositorioBase.Atualizar(entidade);
 
-        public async Task<Venda?> ObterAsync(int id)
+        public async Task<Venda?> ObterAsync(int id, bool isTracking = false)
             => await _repositorioBase
-                .MontarQuery(v => v.Id == id)
+                .MontarQuery(v => v.Id == id, isTracking)
                 .Include(v => v.Itens)
                 .ThenInclude(i => i.Produto)
                 .FirstOrDefaultAsync();

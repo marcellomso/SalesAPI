@@ -1,5 +1,6 @@
 ﻿using Flunt.Validations;
 using Sales.Domain.Entities;
+using Sales.Domain.Enuns;
 
 namespace Sales.Domain.Contracts.Entities.Vendas
 {
@@ -7,7 +8,7 @@ namespace Sales.Domain.Contracts.Entities.Vendas
     {
         public FinalizarVendaContract(Venda venda)
             => Requires()
-                .IsTrue(venda.Status == Enuns.EStatusVenda.Aberta, "Status", "Apenas vendas abertas podem ser finalizadas.")
+                .IsTrue(venda.Status == EStatusVenda.Aberta, "Status", "Apenas vendas abertas podem ser finalizadas.")
                 .IsGreaterOrEqualsThan(venda.TotalPago, venda.TotalVenda, "TotalPago", "Total pago não deve ser menor que o valor total da venda.");
     }
 }

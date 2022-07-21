@@ -1,4 +1,5 @@
-﻿using Sales.Domain.Contracts.Entities.Vendas;
+﻿using Flunt.Validations;
+using Sales.Domain.Contracts.Entities.Vendas;
 using Sales.Domain.Enuns;
 
 namespace Sales.Domain.Entities
@@ -46,8 +47,15 @@ namespace Sales.Domain.Entities
 
         public void CancelarVenda()
         {
+            AddNotifications(new CancelarVendaContract(this));
+
+            if (!IsValid)
+                return;
+
             Status = EStatusVenda.Cancelada;
-            //Continuar validações e ações pos fechamento
+
+            foreach (var item in Itens)
+                item.Produto?.EstornarEstoque(item.Quantidade);
         }
     }
 }

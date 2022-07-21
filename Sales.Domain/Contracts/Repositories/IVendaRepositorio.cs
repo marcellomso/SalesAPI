@@ -6,7 +6,7 @@ namespace Sales.Domain.Contracts.Repositories
     {
         Task AdicionarAsync(Venda entidade);
         void Atualizar(Venda entidade);
-        Task<Venda?> ObterAsync(int id);
+        Task<Venda?> ObterAsync(int id, bool isTracking = false);
         Task<Venda?> ObterPorIdAsync(int id);
     }
 }
