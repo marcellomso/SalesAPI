@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sales.Domain.Contracts.Repositories;
 using Sales.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace Sales.Data.Repositories
 {
@@ -20,11 +19,14 @@ namespace Sales.Data.Repositories
         public void Atualizar(Venda entidade)
             => _repositorioBase.Atualizar(entidade);
 
-        public async Task<Venda?> ObterPorIdAsync(int id)
+        public async Task<Venda?> ObterAsync(int id)
             => await _repositorioBase
                 .MontarQuery(v => v.Id == id)
                 .Include(v => v.Itens)
                 .ThenInclude(i => i.Produto)
                 .FirstOrDefaultAsync();
+
+        public async Task<Venda?> ObterPorIdAsync(int id)
+            => await _repositorioBase.ObterPorIdAsync(id);
     }
 }

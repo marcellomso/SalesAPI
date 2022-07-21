@@ -23,7 +23,7 @@ namespace Sales.ApplicationService
         {
             ValidarCommandEntrada(command, "Objeto venda inválido");
 
-            var venda = await _repositorio.ObterPorIdAsync(id);
+            var venda = await _repositorio.ObterAsync(id);
             if (venda == null || !EstaValido())
             {
                 AddNotification("Venda", "Venda não encontrada");
@@ -43,6 +43,26 @@ namespace Sales.ApplicationService
             return ECodigoRetorno.OperacaoCancelada.GetHashCode();
         }
 
+        public async Task<decimal?> FinalizarVendaAsync(int id, decimal valorPago)
+        {
+            var venda = await _repositorio.ObterPorIdAsync(id);
+
+            if (venda == null)
+            {
+                AddNotification("Venda", "Venda não encontrada");
+                return null;
+            }
+
+            venda.FinalizarVenda(valorPago);
+            AddNotifications(venda);
+            _repositorio.Atualizar(venda);
+
+            if (await Commit())
+                return venda.Troco;
+
+            return ECodigoRetorno.OperacaoCancelada.GetHashCode();
+        }
+
         public async Task<int> NovaVendaAsync()
         {
             var venda = new Venda();
@@ -58,7 +78,7 @@ namespace Sales.ApplicationService
 
         public async Task<ConsultaVendaCommand?> ObterPorIdAsync(int id)
         {
-            var venda = await _repositorio.ObterPorIdAsync(id);
+            var venda = await _repositorio.ObterAsync(id);
 
             if (venda == null)
             {

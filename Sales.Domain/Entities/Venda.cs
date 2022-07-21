@@ -31,9 +31,22 @@ namespace Sales.Domain.Entities
             TotalVenda += item.ValorTotal;
         }
 
-        public void FecharVenda()
+        public void FinalizarVenda(decimal totalPago)
         {
+            TotalPago = totalPago;
+
+            AddNotifications(new FinalizarVendaContract(this));
+
+            if (!IsValid)
+                return;
+
             Status = EStatusVenda.Finalizada;
+            Troco = TotalPago - TotalVenda;
+        }
+
+        public void CancelarVenda()
+        {
+            Status = EStatusVenda.Cancelada;
             //Continuar validações e ações pos fechamento
         }
     }

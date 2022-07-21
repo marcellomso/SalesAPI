@@ -59,5 +59,20 @@ namespace Sales.Api.Controllers
                 return RetornarResposta(ex);
             }
         }
+
+        [HttpPut]
+        [Route("{id:int}/valor/{valor:decimal}")]
+        public async Task<IActionResult> Put([FromRoute] int id, [FromRoute] decimal valor)
+        {
+            try
+            {
+                var retorno = await _servico.FinalizarVendaAsync(id, valor);
+                return RetornarResposta((ServicoBase)_servico, retorno);
+            }
+            catch (Exception ex)
+            {
+                return RetornarResposta(ex);
+            }
+        }
     }
 }
