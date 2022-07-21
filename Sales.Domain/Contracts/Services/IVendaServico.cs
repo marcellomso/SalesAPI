@@ -1,4 +1,4 @@
-﻿using Sales.Domain.Commands;
+﻿using Sales.Domain.Commands.VendaCommands;
 
 namespace Sales.Domain.Contracts.Services
 {
@@ -6,5 +6,6 @@ namespace Sales.Domain.Contracts.Services
     {
         Task<int> NovaVendaAsync();
         Task<int?> AdicionarItemAsync(int id, AdicionarItemComand command);
+        Task<ConsultaVendaCommand?> ObterPorIdAsync(int id);
     }
 }

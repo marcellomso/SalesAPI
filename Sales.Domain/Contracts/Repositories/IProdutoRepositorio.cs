@@ -1,9 +1,13 @@
 ﻿using Sales.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace Sales.Domain.Contracts.Repositories
 {
-    public interface IProdutoRepositorio: IRepositorioBase<Produto>
+    public interface IProdutoRepositorio
     {
-
+        Task<IEnumerable<Produto>> ObterAsync(Expression<Func<Produto, bool>>? filter = null);
+        Task<Produto?> ObterPorIdAsync(int id);
+        Task AdicionarAsync(Produto entidade);
+        void Atualizar(Produto entidade);
     }
 }

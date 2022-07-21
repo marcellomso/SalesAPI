@@ -28,6 +28,17 @@ namespace Sales.Data.Repositories
             return await query.AsNoTracking().ToListAsync();
         }
 
+        public IQueryable<TEntity> MontarQuery(Expression<Func<TEntity, bool>>? filter = null)
+        {
+            var query = _dbSet.AsQueryable();
+
+            if (filter != null)
+                query = query
+                    .Where(filter);
+
+            return query.AsNoTracking();
+        }
+
         public async Task<TEntity?> ObterPorIdAsync(int id)
             => await _dbSet.FindAsync(id);     
 

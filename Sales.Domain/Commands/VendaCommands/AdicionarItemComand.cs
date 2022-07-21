@@ -1,4 +1,4 @@
-﻿namespace Sales.Domain.Commands
+﻿namespace Sales.Domain.Commands.VendaCommands
 {
     public class AdicionarItemComand
     {

@@ -2,7 +2,10 @@
 
 namespace Sales.Domain.Contracts.Repositories
 {
-    public interface IVendaRepositorio: IRepositorioBase<Venda>
+    public interface IVendaRepositorio
     {
+        Task<Venda?> ObterPorIdAsync(int id);
+        Task AdicionarAsync(Venda entidade);
+        void Atualizar(Venda entidade);
     }
 }

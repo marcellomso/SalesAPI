@@ -1,4 +1,4 @@
-﻿using Sales.Domain.Commands;
+﻿using Sales.Domain.Commands.VendaCommands;
 using Sales.Domain.Contracts.Repositories;
 using Sales.Domain.Contracts.Services;
 using Sales.Domain.Entities;
@@ -43,7 +43,6 @@ namespace Sales.ApplicationService
             return ECodigoRetorno.OperacaoCancelada.GetHashCode();
         }
 
-
         public async Task<int> NovaVendaAsync()
         {
             var venda = new Venda();
@@ -55,6 +54,35 @@ namespace Sales.ApplicationService
                 return await Task.FromResult(venda.Id);
 
             return ECodigoRetorno.OperacaoCancelada.GetHashCode();
+        }
+
+        public async Task<ConsultaVendaCommand?> ObterPorIdAsync(int id)
+        {
+            var venda = await _repositorio.ObterPorIdAsync(id);
+
+            if (venda == null)
+            {
+                AddNotification("Venda", "Venda não encontrada");
+                return null;
+            }
+
+            return new ConsultaVendaCommand()
+            {
+                Id = venda.Id,
+                DataHora = venda.DataHora,
+                TotalVenda = venda.TotalVenda,
+                TotalPago = venda.TotalPago,
+                Troco = venda.Troco,
+                Status = venda.Status.ToString(),
+                Itens = venda.Itens?.Select(i => new ConsultaItemVendaCommand()
+                {
+                    Id = i.Id,
+                    Descricao = i.Produto?.Descricao ?? string.Empty,
+                    PrecoUnitario = i.PrecoUnitario,
+                    Quantidade = i.Quantidade,
+                    ValorTotal = i.ValorTotal
+                }).ToList() ?? new()
+            };
         }
     }
 }

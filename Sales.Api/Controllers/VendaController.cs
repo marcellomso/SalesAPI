@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Sales.ApplicationService;
-using Sales.Domain.Commands;
+using Sales.Domain.Commands.VendaCommands;
 using Sales.Domain.Contracts.Services;
 
 namespace Sales.Api.Controllers
@@ -14,6 +14,21 @@ namespace Sales.Api.Controllers
         {
             _servico = servico;
 
+        }
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            try
+            {
+                var venda = await _servico.ObterPorIdAsync(id);
+                return RetornarResposta((ServicoBase)_servico, venda);
+            }
+            catch (Exception ex)
+            {
+                return RetornarResposta(ex);
+            }
         }
 
         [HttpPost]
