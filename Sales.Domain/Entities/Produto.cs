@@ -36,5 +36,15 @@ namespace Sales.Domain.Entities
             if (IsValid)
                 Excluido = true;
         }
+
+        public void BaixarEstoque(decimal quantidade)
+        {
+            Estoque -= quantidade;
+
+            AddNotifications(new BaixarEstoqueContract(this));
+        }
+
+        public void EstornarEstoque(decimal quantidade)
+            => Estoque += quantidade;
     }
 }

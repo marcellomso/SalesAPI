@@ -7,16 +7,11 @@ namespace Sales.Data.Persistence
     public class SalesDataContext : DbContext
     {
         public DbSet<Produto>? Produtos { get; set; }
+        public DbSet<Venda>? Vendas { get; set; }
+        public DbSet<Item>? Itens { get; set; }
 
-
-        public SalesDataContext(DbContextOptions<SalesDataContext> options) : base(options)
-        {
-
-        }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        //    optionsBuilder
-        //        .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=SalesDB;Trusted_Connection=True;");
+        public SalesDataContext(DbContextOptions<SalesDataContext> options)
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +23,8 @@ namespace Sales.Data.Persistence
                 fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             modelBuilder.ApplyConfiguration(new ProdutoConfiguracao());
+            modelBuilder.ApplyConfiguration(new VendaConfiguracao());
+            modelBuilder.ApplyConfiguration(new ItemConfiguracao());
         }
     }
 }

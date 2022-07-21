@@ -4,11 +4,11 @@ namespace Sales.Tests
 {
     public class ProdutoTest
     {
-        private readonly Produto produtoExluido;
+        private readonly Produto _produtoExluido;
         public ProdutoTest()
         {
-            produtoExluido = new Produto("Produto Valido", 1, 1);
-            produtoExluido.Excluir();
+            _produtoExluido = new Produto("Produto Valido", 1, 1);
+            _produtoExluido.Excluir();
         }
 
         [Test]
@@ -35,9 +35,18 @@ namespace Sales.Tests
         [Test]
         public void ExcluirProduto()
         {
-            produtoExluido.Excluir();
+            _produtoExluido.Excluir();
 
-            Assert.That(produtoExluido.IsValid, Is.False);
+            Assert.That(_produtoExluido.IsValid, Is.False);
+        }
+
+        [Test]
+        public void BaixarEstoqueNegativo()
+        {
+            var produto = new Produto("Produto Valido", 1, 1);
+            produto.BaixarEstoque(5);
+
+            Assert.That(produto.IsValid, Is.False);
         }
     }
 }

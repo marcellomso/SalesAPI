@@ -2,7 +2,7 @@
 {
     public enum EStatusVenda
     {
-        Aberta,
+        Aberta = 1,
         Finalizada,
         Cancelada
     }
