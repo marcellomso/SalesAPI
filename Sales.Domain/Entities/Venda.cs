@@ -1,5 +1,4 @@
-﻿using Flunt.Validations;
-using Sales.Domain.Contracts.Entities.Vendas;
+﻿using Sales.Domain.Contracts.Entities.Vendas;
 using Sales.Domain.Enuns;
 
 namespace Sales.Domain.Entities
@@ -12,7 +11,9 @@ namespace Sales.Domain.Entities
         public decimal Troco { get; private set; }
         public EStatusVenda Status { get; private set; }
 
+#pragma warning disable IDE0044 // Add readonly modifier
         private List<Item> _items = new();
+#pragma warning restore IDE0044 // Add readonly modifier
         public IReadOnlyList<Item> Itens { get { return _items; } }
 
         public Venda()

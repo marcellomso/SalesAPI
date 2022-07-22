@@ -6,7 +6,7 @@ namespace Sales.Data.Repositories
 {
     public class VendaRepositorio : IVendaRepositorio
     {
-        private IRepositorioBase<Venda> _repositorioBase;
+        private readonly IRepositorioBase<Venda> _repositorioBase;
 
         public VendaRepositorio(IRepositorioBase<Venda> repositorioBase)
         {

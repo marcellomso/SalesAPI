@@ -6,7 +6,6 @@ namespace Sales.Api.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-
         protected IActionResult RetornarResposta(ServicoBase service, object? objData)
         {
             if (objData == null)
@@ -20,8 +19,12 @@ namespace Sales.Api.Controllers
 
         protected IActionResult RetornarResposta(Exception ex)
         {
-            var erros = new List<string>{ ex.Message };
-            return RespostaErro(ex, erros);
+            var erros = new List<string>
+            {
+                $"{nameof(ex.Message)}: {ex.Message}",
+                $"{nameof(ex.InnerException)}: {ex.InnerException}"
+            };
+            return RespostaErro("Falha ao execular a requisição.", erros);
         }
 
         private IActionResult RespostaErro(object objData, List<string> listaErros)

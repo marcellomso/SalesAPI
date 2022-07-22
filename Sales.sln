@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Data", "Sales.Data\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.Api", "Sales.Api\Sales.Api.csproj", "{21D722AF-515D-4F2B-B092-13576B321B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.ApplicationService", "Sales.ApplicationService\Sales.ApplicationService.csproj", "{A11F5859-BB86-4F33-9275-7D0C8FB042AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sales.ApplicationService", "Sales.ApplicationService\Sales.ApplicationService.csproj", "{A11F5859-BB86-4F33-9275-7D0C8FB042AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sales.SharedKernel", "Sales.SharedKernel\Sales.SharedKernel.csproj", "{461B129B-F36D-45BE-ACF7-7F1F134DAB4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{A11F5859-BB86-4F33-9275-7D0C8FB042AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A11F5859-BB86-4F33-9275-7D0C8FB042AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A11F5859-BB86-4F33-9275-7D0C8FB042AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{461B129B-F36D-45BE-ACF7-7F1F134DAB4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{461B129B-F36D-45BE-ACF7-7F1F134DAB4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{461B129B-F36D-45BE-ACF7-7F1F134DAB4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{461B129B-F36D-45BE-ACF7-7F1F134DAB4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{22C15EB3-BBC2-485C-AF4B-1299C36A5083} = {444C1F09-84DF-48E5-9A08-DED686023FFF}
 		{21D722AF-515D-4F2B-B092-13576B321B17} = {17D7A1A8-E5F5-4C56-BBB6-4E96E16725E8}
 		{A11F5859-BB86-4F33-9275-7D0C8FB042AE} = {7ED7F901-8B51-42D0-8425-2FA2DABB7EE5}
+		{461B129B-F36D-45BE-ACF7-7F1F134DAB4B} = {CF97BABD-D892-467E-8E0F-0120FA03951D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {957BEEA6-20CE-42FC-910B-4F46B33279E6}

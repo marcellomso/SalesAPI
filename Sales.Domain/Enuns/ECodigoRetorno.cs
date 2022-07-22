@@ -2,6 +2,7 @@
 {
     public enum ECodigoRetorno
     {
-        OperacaoCancelada = -1
+        OperacaoCancelada = -1,
+        OperacaoOK = 200
     }
 }

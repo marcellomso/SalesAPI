@@ -4,12 +4,16 @@ using Sales.Data.Persistence;
 using Sales.Data.Repositories;
 using Sales.Domain.Contracts.Repositories;
 using Sales.Domain.Contracts.Services;
+using Sales.SharedKernel.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddDbContext<SalesDataContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(!string.IsNullOrEmpty(builder.Configuration.GetConnectionString("DefaultConnection")) ?
+        CryptographyHelper.Dencrypt(builder.Configuration.GetConnectionString("DefaultConnection")) :
+        "Server=;Database=;Trusted_Connection=True;");
 });
 
 builder.Services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
@@ -19,6 +23,7 @@ builder.Services.AddTransient<IProdutoRepositorio, ProdutoRepositorio>();
 builder.Services.AddTransient<IProdutoServico, ProdutoServico>();
 builder.Services.AddTransient<IVendaRepositorio, VendaRepositorio>();
 builder.Services.AddTransient<IVendaServico, VendaSevico>();
+builder.Services.AddTransient<IConfigBancoDados, ConfigSqlServer>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
