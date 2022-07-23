@@ -26,5 +26,11 @@ namespace Sales.Data.Persistence
             modelBuilder.ApplyConfiguration(new VendaConfiguracao());
             modelBuilder.ApplyConfiguration(new ItemConfiguracao());
         }
+
+        public void Update()
+        {
+            if (Database.CanConnect())
+                Database.Migrate();
+        }
     }
 }

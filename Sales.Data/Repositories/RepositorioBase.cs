@@ -15,6 +15,8 @@ namespace Sales.Data.Repositories
         {
             _dbSet = appContext.Set<TEntity>();
             _appContext = appContext;
+
+            appContext.Update();
         }
 
         public async Task<IEnumerable<TEntity>> ObterAsync(Expression<Func<TEntity, bool>>? filter = null)
