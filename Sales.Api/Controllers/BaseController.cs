@@ -6,7 +6,7 @@ namespace Sales.Api.Controllers
     [ApiController]
     public abstract class BaseController : ControllerBase
     {
-        protected IActionResult RetornarResposta(ServicoBase service, object? objData)
+        protected IActionResult RetornarResposta(BaseService service, object? objData)
         {
             if (objData == null)
                 return RespostaNaoEncontrado(service.Notificacoes());

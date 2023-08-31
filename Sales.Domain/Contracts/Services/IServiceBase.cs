@@ -1,10 +1,9 @@
-﻿namespace Sales.Domain.Contracts.Services
-{
-    public interface IServiceBase
-    {
-        bool EstaValido();
-        List<string> Notificacoes();
+﻿namespace Sales.Domain.Contracts.Services;
 
-        void ValidarCommandEntrada(object command, string mensagemRetorno);
-    }
+public interface IServiceBase
+{
+    bool EstaValido();
+    List<string> Notificacoes();
+
+    void ValidarCommandEntrada(object command, string mensagemRetorno);
 }

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Scopes\" />
+    <Compile Remove="Scopes\**" />
+    <EmbeddedResource Remove="Scopes\**" />
+    <None Remove="Scopes\**" />
   </ItemGroup>
 
   <ItemGroup>

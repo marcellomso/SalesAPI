@@ -21,7 +21,7 @@ namespace Sales.Api.Controllers
             try
             {
                 var produtos = await _servico.ObterAsync();
-                return RetornarResposta((ServicoBase)_servico, produtos);
+                return RetornarResposta((BaseService)_servico, produtos);
             }
             catch (Exception ex)
             {
@@ -30,13 +30,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Get(int id)
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
                 var produto = await _servico.ObterPorIdAsync(id);
-                return RetornarResposta((ServicoBase)_servico, produto);
+                return RetornarResposta((BaseService)_servico, produto);
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace Sales.Api.Controllers
             try
             {
                 var produtos = await _servico.ObterAsync(descricao);
-                return RetornarResposta((ServicoBase)_servico, produtos);
+                return RetornarResposta((BaseService)_servico, produtos);
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace Sales.Api.Controllers
             try
             {
                 var retorno = await _servico.AdicionarAsync(command);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {
@@ -74,13 +74,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Put(int id, [FromBody]ProdutoCommand command)
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Put(Guid id, [FromBody]ProdutoCommand command)
         {
             try
             {
                 var retorno = await _servico.AtualizarAsync(id, command);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {
@@ -89,13 +89,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Delete(int id)
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
                 var retorno = await _servico.ExcluirAsync(id);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {

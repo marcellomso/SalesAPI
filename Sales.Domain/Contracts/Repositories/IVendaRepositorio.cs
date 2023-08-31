@@ -1,12 +1,11 @@
 ﻿using Sales.Domain.Entities;
 
-namespace Sales.Domain.Contracts.Repositories
+namespace Sales.Domain.Contracts.Repositories;
+
+public interface IVendaRepositorio
 {
-    public interface IVendaRepositorio
-    {
-        Task AdicionarAsync(Venda entidade);
-        void Atualizar(Venda entidade);
-        Task<Venda?> ObterAsync(int id, bool isTracking = false);
-        Task<Venda?> ObterPorIdAsync(int id);
-    }
+    Task AdicionarAsync(Venda entidade);
+    void Atualizar(Venda entidade);
+    Task<Venda?> ObterAsync(Guid id, bool isTracking = false);
+    Task<Venda?> ObterPorIdAsync(Guid id);
 }

@@ -17,13 +17,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
-        public async Task<IActionResult> Get(int id)
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
                 var venda = await _servico.ObterPorIdAsync(id);
-                return RetornarResposta((ServicoBase)_servico, venda);
+                return RetornarResposta((BaseService)_servico, venda);
             }
             catch (Exception ex)
             {
@@ -37,7 +37,7 @@ namespace Sales.Api.Controllers
             try
             {
                 var retorno = await _servico.NovaVendaAsync();
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {
@@ -46,13 +46,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}/adicionar")]
-        public async Task<IActionResult> Put(int id, [FromBody] AdicionarItemComand command)
+        [Route("{id:Guid}/adicionar")]
+        public async Task<IActionResult> Put(Guid id, [FromBody] AdicionarItemComand command)
         {
             try
             {
                 var retorno = await _servico.AdicionarItemAsync(id, command);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {
@@ -61,13 +61,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}/fechar/{valor:decimal}")]
-        public async Task<IActionResult> Put([FromRoute] int id, [FromRoute] decimal valor)
+        [Route("{id:Guid}/fechar/{valor:decimal}")]
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromRoute] decimal valor)
         {
             try
             {
                 var retorno = await _servico.FinalizarVendaAsync(id, valor);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {
@@ -76,13 +76,13 @@ namespace Sales.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id:int}/cancelar")]
-        public async Task<IActionResult> Put(int id)
+        [Route("{id:Guid}/cancelar")]
+        public async Task<IActionResult> Put(Guid id)
         {
             try
             {
                 var retorno = await _servico.CancelarVendaAsync(id);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {

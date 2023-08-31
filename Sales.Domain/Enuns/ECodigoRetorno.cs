@@ -1,8 +1,7 @@
-﻿namespace Sales.Domain.Enuns
+﻿namespace Sales.Domain.Enuns;
+
+public enum ECodigoRetorno
 {
-    public enum ECodigoRetorno
-    {
-        OperacaoCancelada = -1,
-        OperacaoOK = 200
-    }
+    OperacaoCancelada = -1,
+    OperacaoOK = 200
 }

@@ -1,14 +1,13 @@
 ﻿using Sales.Domain.Commands.ConfiguracoesCommands;
 
-namespace Sales.Domain.Contracts.Services
+namespace Sales.Domain.Contracts.Services;
+
+public interface IConfigBancoDados : IServiceBase
 {
-    public interface IConfigBancoDados : IServiceBase
-    {
-        int? AlterarConfiguracao(ConfiguracaoCommand command);
+    Guid? AlterarConfiguracao(ConfiguracaoCommand command);
 
-        string MontarStringConexao(ConfiguracaoCommand command);
+    string MontarStringConexao(ConfiguracaoCommand command);
 
-        void ValidarConfiguracao(ConfiguracaoCommand command);
+    void ValidarConfiguracao(ConfiguracaoCommand command);
 
-    }
 }

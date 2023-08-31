@@ -1,7 +1,6 @@
-﻿namespace Sales.Domain.Contracts.Repositories
+﻿namespace Sales.Domain.Contracts.Repositories;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task CommitAsync();
-    }
+    Task CommitAsync();
 }

@@ -1,14 +1,13 @@
 ﻿using Sales.Domain.Entities;
 
-namespace Sales.Tests
+namespace Sales.Tests;
+
+public class ItemTest
 {
-    public class ItemTest
+    [Test]
+    public void ValidarProdutoExiste()
     {
-        [Test]
-        public void ValidarProdutoExiste()
-        {
-            var item = new Item(0, null, 10);
-            Assert.That(item.IsValid, Is.False);
-        }
+        var item = new Item(new Guid(), null, 10);
+        Assert.That(item.IsValid, Is.False);
     }
 }

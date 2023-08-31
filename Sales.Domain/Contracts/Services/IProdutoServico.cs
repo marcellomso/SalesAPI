@@ -1,14 +1,13 @@
 ﻿using Sales.Domain.Commands.ProdutoCommand;
 
-namespace Sales.Domain.Contracts.Services
+namespace Sales.Domain.Contracts.Services;
+
+public interface IProdutoServico : IServiceBase
 {
-    public interface IProdutoServico: IServiceBase
-    {
-        Task<int> AdicionarAsync(ProdutoCommand command);
-        Task<int?> AtualizarAsync(int id, ProdutoCommand command);
-        Task<ConsultaProdutoCommand?> ObterPorIdAsync(int id);
-        Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync();
-        Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync(string descricao);
-        Task<int?> ExcluirAsync(int id);
-    }
+    Task<Guid?> AdicionarAsync(ProdutoCommand command);
+    Task<Guid?> AtualizarAsync(Guid id, ProdutoCommand command);
+    Task<ConsultaProdutoCommand?> ObterPorIdAsync(Guid id);
+    Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync();
+    Task<IEnumerable<ConsultaProdutoCommand>> ObterAsync(string descricao);
+    Task<Guid?> ExcluirAsync(Guid id);
 }

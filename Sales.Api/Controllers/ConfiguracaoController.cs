@@ -21,7 +21,7 @@ namespace Sales.Api.Controllers
             try
             {
                 var retorno = _servico.AlterarConfiguracao(command);
-                return RetornarResposta((ServicoBase)_servico, retorno);
+                return RetornarResposta((BaseService)_servico, retorno);
             }
             catch (Exception ex)
             {

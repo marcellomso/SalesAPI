@@ -1,9 +1,8 @@
-﻿namespace Sales.Domain.Enuns
+﻿namespace Sales.Domain.Enuns;
+
+public enum EStatusVenda
 {
-    public enum EStatusVenda
-    {
-        Aberta = 1,
-        Finalizada,
-        Cancelada
-    }
+    Aberta = 1,
+    Finalizada,
+    Cancelada
 }
